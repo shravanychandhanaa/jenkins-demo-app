@@ -4,11 +4,12 @@
 FROM alpine:latest
 
 # Install Node.js if you were building a Node app, for example
-# RUN apk add --no-cache nodejs npm
+RUN apk add --no-cache nodejs npm
 
 # Set the working directory in the container
 WORKDIR /app
-
+COPY package*.json ./
+RUN npm install
 # Copy application files (e.g., a simple index.html)
 COPY . /app
 
@@ -17,5 +18,5 @@ EXPOSE 80
 
 # Command to run the application
 # For a static HTML, you might use a simple web server
-CMD ["busybox", "httpd", "-f", "-p", "80"]
+CMD ["node", "app.js"]
 # If it was a Node.js app, it might be: CMD ["node", "app.js"]
